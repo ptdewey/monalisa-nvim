@@ -14,23 +14,29 @@ local hsl = lush.hsl
 ---@field yellow string
 
 ---@type monalisa.colors
-local theme = {
+local colors = {
     black = "#120b0d",
     brown = "#341b0f",
     red = "#992a21",
+    -- red = "#ca5443",
     green = "#636135",
     orange = "#c16e31",
     blue = "#525c5d",
-    crimson = "#991f2d",
+    -- crimson = "#991f2d",
+    crimson = "#9e333f",
+    -- crimson = "#b94649",
     teal = "#598058",
     yellow = "#f6d666",
 
     tan = "#ffe598",
-    brightGreen = "#b4b264",
+    brightGreen = "#928f4e",
     brightBlack = "#874228",
+    darkOrange = "#9a5727",
+
     darkYellow = "#bb8a3e",
 
-    fg = "#f7e7ae", -- Not being used?
+    fg = "#f7e7ae", -- NOTE: Not being used?
+    -- brightGreen = "#b4b264",
 
     comment = "#514743",
     punc = "#6a5f3f",
@@ -38,23 +44,22 @@ local theme = {
 }
 
 local c = {
-    bg = theme.black,
-    fg = theme.tan,
-    keyword = theme.green,
-    type = theme.brightGreen,
-    func = theme.orange,
-    operator = theme.blue,
-    number = theme.red,
-    -- special = hsl(theme.orange).darken(),
-    special = theme.orange,
-    field = theme.teal,
-    -- field = hsl(theme.brown).lighten(25),
-    string = theme.darkYellow,
-    error = theme.red,
-    warn = theme.orange,
-    info = theme.punc,
-    hint = theme.comment,
-    ok = theme.brightGreen,
+    bg = colors.black,
+    fg = colors.tan,
+    keyword = colors.green,
+    type = colors.brightBlack,
+    func = colors.darkOrange,
+    operator = colors.blue,
+    number = colors.red,
+    special = colors.orange,
+    field = colors.brightGreen,
+    constant = colors.crimson,
+    string = colors.darkYellow,
+    error = colors.red,
+    warn = colors.orange,
+    info = colors.punc,
+    hint = colors.comment,
+    ok = colors.brightGreen,
 }
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
@@ -65,25 +70,25 @@ local theme = lush(function(injected_functions)
     return {
         Normal({ fg = c.fg, bg = c.bg }), -- Normal text
         Cursor({ fg = c.bg, bg = c.fg }), -- Character under the cursor
-        CurSearch({ fg = c.bg, bg = theme.teal }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
-        Visual({ bg = theme.selection }), -- Visual mode selection
+        CurSearch({ fg = c.bg, bg = colors.teal }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
+        Visual({ bg = colors.selection }), -- Visual mode selection
 
         Conceal({}), -- Placeholder characters substituted for concealed text (see 'conceallevel')
         Directory({}), -- Directory names (and other special names in listings)
-        DiffAdd({}), -- Diff mode: Added line |diff.txt|
-        DiffChange({}), -- Diff mode: Changed line |diff.txt|
-        DiffDelete({}), -- Diff mode: Deleted line |diff.txt|
+        DiffAdd({ fg = colors.green }), -- Diff mode: Added line |diff.txt|
+        DiffChange({ fg = colors.comment }), -- Diff mode: Changed line |diff.txt|
+        DiffDelete({ fg = colors.red }), -- Diff mode: Deleted line |diff.txt|
         DiffText({}), -- Diff mode: Changed text within a changed line |diff.txt|
         EndOfBuffer({}), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
         TermCursor({ Cursor }), -- Cursor in a focused terminal
         ErrorMsg({ fg = c.warn }), -- Error messages on the command line
         SignColumn({ Normal }), -- Column where |signs| are displayed
-        IncSearch({ fg = c.bg, bg = theme.teal }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+        IncSearch({ fg = c.bg, bg = colors.teal }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
         Substitute({}), -- |:substitute| replacement text highlighting
-        CursorLine({ Normal }),
-        LineNr({ fg = theme.green }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-        LineNrAbove({ fg = theme.comment }), -- Line number for when the 'relativenumber' option is set, above the cursor line
-        LineNrBelow({ fg = theme.comment }), -- Line number for when the 'relativenumber' option is set, below the cursor line
+        CursorLine({}),
+        LineNr({ fg = colors.green }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+        LineNrAbove({ fg = colors.comment }), -- Line number for when the 'relativenumber' option is set, above the cursor line
+        LineNrBelow({ fg = colors.comment }), -- Line number for when the 'relativenumber' option is set, below the cursor line
         CursorLineNr({}), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
         CursorLineFold({}), -- Like FoldColumn when 'cursorline' is set for the cursor line
         CursorLineSign({}), -- Like SignColumn when 'cursorline' is set for the cursor line
@@ -107,7 +112,7 @@ local theme = lush(function(injected_functions)
         PmenuThumb({}), -- Popup menu: Thumb of the scrollbar.
         Question({}), -- |hit-enter| prompt and yes/no questions
         QuickFixLine({}), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-        Search({ fg = c.bg, bg = theme.orange }), -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
+        Search({ fg = c.bg, bg = colors.orange }), -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
         SpecialKey({}), -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
         SpellBad({}), -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
         SpellCap({}), -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
@@ -127,12 +132,12 @@ local theme = lush(function(injected_functions)
         WinBar({}), -- Window bar of current window
         WinBarNC({}), -- Window bar of not-current windows
 
-        Comment({ fg = theme.comment }), -- Any comment
-        Constant({ fg = theme.yellow }), -- (*) Any constant
+        Comment({ fg = colors.comment }), -- Any comment
+        Constant({ fg = c.constant }), -- (*) Any constant
+        Character({ Constant }), --   A character constant: 'c', '\n'
+        Boolean({ Constant }), --   A boolean constant: TRUE, false
         String({ fg = c.string }), --   A string constant: "this is a string"
-        Character({ fg = theme.yellow }), --   A character constant: 'c', '\n'
         Number({ fg = c.number }), --   A number constant: 234, 0xff
-        Boolean({ Number }), --   A boolean constant: TRUE, false
         Float({ Number }), --   A floating point constant: 2.3e10
 
         Identifier({ fg = c.fg }), -- (*) Any variable name
@@ -144,8 +149,8 @@ local theme = lush(function(injected_functions)
         Conditional({ Statement }), --   if, then, else, endif, switch, etc.
         Repeat({ Statement }), --   for, do, while, etc.
         Label({ Statement }), --   case, default, etc.
-        Operator({ fg = c.operator }), --   "sizeof", "+", "*", etc.
         Exception({ Statement }), --   try, catch, throw
+        Operator({ fg = c.operator }), --   "sizeof", "+", "*", etc.
 
         PreProc({}), -- (*) Generic Preprocessor
         Include({}), --   Preprocessor #include
@@ -154,11 +159,11 @@ local theme = lush(function(injected_functions)
         PreCondit({}), --   Preprocessor #if, #else, #endif, etc.
 
         Type({ fg = c.type }), -- (*) int, long, char, etc.
-        StorageClass({}), --   static, register, volatile, etc.
-        Typedef({ fg = c.type }), --   A typedef
+        StorageClass({ Type }), --   static, register, volatile, etc.
+        Typedef({ Type }), --   A typedef
 
         Special({ fg = c.special }), -- (*) Any special symbol
-        SpecialChar({}), --   Special character in a constant
+        SpecialChar({ Special }), --   Special character in a constant
         Tag({}), --   You can use CTRL-] on this
         Delimiter({ Normal }), --   Character that needs attention
         SpecialComment({}), --   Special things inside a comment (e.g. '\n')
@@ -167,7 +172,7 @@ local theme = lush(function(injected_functions)
         Underlined({ gui = "underline" }), -- Text that stands out, HTML links
         Ignore({ Comment }), -- Left blank, hidden |hl-Ignore| (NOTE: May be invisible here in template)
         Error({ fg = c.error }), -- Any erroneous construct
-        Todo({ fg = theme.yellow }), -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+        Todo({ fg = colors.yellow }), -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
         LspReferenceText({}), -- Used for highlighting "text" references
         LspReferenceRead({}), -- Used for highlighting "read" references
@@ -209,10 +214,10 @@ local theme = lush(function(injected_functions)
         sym("@text.underline")({ Underlined }), -- Underlined
         sym("@text.todo")({ Todo }), -- Todo
         sym("@comment")({ Comment }), -- Comment
-        sym("@punctuation")({ fg = theme.punc }), -- Delimiter
+        sym("@punctuation")({ fg = colors.punc }), -- Delimiter
         sym("@punctuation.bracket")({ Normal }), -- Delimiter
         sym("@constant")({ Constant }), -- Constant
-        sym("@constant.builtin")({ Special }), -- Special
+        sym("@constant.builtin")({ Constant }), -- Special
         sym("@constant.macro")({ Define }), -- Define
         sym("@define")({ Define }), -- Define
         sym("@macro")({ Macro }), -- Macro
@@ -250,13 +255,14 @@ local theme = lush(function(injected_functions)
         sym("@tag")({ Tag }), -- Tag
 
         IblIndent({ fg = hsl(94, 22, 15), gui = "nocombine" }),
+        -- IblIndent({ fg = colors.brown, gui = "nocombine" }),
         IblWhitespace({ fg = hsl(94, 22, 15), gui = "nocombine" }),
         IblScope({ fg = hsl(72, 27, 23), gui = "nocombine" }),
 
-        TodoBGREFACTOR({ fg = c.bg, bg = theme.comment, gui = "bold" }),
-        TodoFGREFACTOR({ fg = theme.comment }),
-        TodoBGTODO({ TodoBGREFACTOR }),
-        TodoFGTODO({ TodoFGREFACTOR }),
+        -- TodoBGREFACTOR({ fg = c.bg, bg = theme.comment, gui = "bold" }),
+        -- TodoFGREFACTOR({ fg = theme.comment }),
+        -- TodoBGTODO({ TodoBGREFACTOR }),
+        -- TodoFGTODO({ TodoFGREFACTOR }),
         -- TodoBGTODO({ fg = c.bg, bg = theme.yellow, gui = "bold" }),
         -- TodoFGTODO({ Todo }),
     }
