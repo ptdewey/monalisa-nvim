@@ -1,66 +1,68 @@
 local lush = require("lush")
+
 local hsl = lush.hsl
 
----@class monalisa.colors
----@field black string
----@field brown string
----@field red string
----@field green string
----@field orange string
----@field blue string
----@field crimson string
----@field teal string
----@field yellow string
+-- Unused colors
+-- yellow = "#f6d666", -- Core from iterm, not used
+-- red = "#992a21", -- core from iterm, not used
+-- crimson = "#991f2d", -- core from iterm, not used
+-- teal = "#598058" -- core teal
+-- crimson = "#b94649",
+-- darkYellow = "#c7ad53",
+-- darkYellow = "#d9b054",
+-- darkYellow = "#a18954",
+-- brightGreen = "#b4b264",
+-- fg = "#f7e7ae",
+-- altBlue = "#51605b",
+-- blueGreen = hsl("#4c584a").lighten(10), -- lightened version is equivalent to blueGreen
+-- brightBlack = "#874228",
+-- hsl("#231a1d").lighten(5)
+-- brown = "#341b0f", -- Core color from iterm, but not visible on background (light mode fg?)
 
----@type monalisa.colors
 local colors = {
     black = "#120b0d",
-    brown = "#341b0f",
-    -- red = "#992a21",
+    tan = "#ffe598",
     red = "#ca5443",
     green = "#636135",
-    orange = "#c16e31",
     blue = "#525c5d",
-    -- crimson = "#991f2d",
     crimson = "#9e333f",
-    -- crimson = "#b94649",
-    teal = "#598058",
-    yellow = "#f6d666",
+    orange = "#c16e31",
+    teal = "#476746",
 
-    tan = "#ffe598",
     brightGreen = "#928f4e",
-    brightBlack = "#874228",
     darkOrange = "#9a5727",
-
+    blueGreen = "#5D6C5A",
     darkYellow = "#bb8a3e",
-
-    fg = "#f7e7ae", -- NOTE: Not being used?
-    -- brightGreen = "#b4b264",
 
     comment = "#514743",
     punc = "#6a5f3f",
-    selection = hsl("#231a1d").lighten(5),
+    selection = "#2F2327",
 }
 
 local c = {
     bg = colors.black,
     fg = colors.tan,
-    keyword = colors.green,
-    type = colors.brightBlack,
-    func = colors.darkOrange,
-    operator = colors.blue,
-    number = colors.red,
-    special = colors.orange,
-    field = colors.brightGreen,
+    delimiter = colors.tan,
+    operator = colors.blueGreen,
+    number = colors.crimson,
     constant = colors.crimson,
     string = colors.darkYellow,
-    error = colors.red,
-    warn = colors.orange,
-    info = colors.punc,
+    special = colors.darkOrange,
+    keyword = colors.brightGreen,
+    func = colors.darkOrange,
+    type = colors.green,
+    builtinType = colors.blueGreen,
+    builtinFunc = colors.green, -- TODO: decide between green, teal, blueGreen
+    field = colors.teal, -- TODO: figure out this one between teal, orange, darkYellow
+
+    error = colors.crimson,
+    warn = colors.darkOrange,
+    info = colors.blueGreen,
     hint = colors.comment,
     ok = colors.brightGreen,
-    builtinType = colors.teal,
-    builtinFunc = colors.orange,
+    comment = colors.comment,
+    punc = colors.punc,
+    selection = colors.selection,
 }
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
@@ -71,25 +73,27 @@ local theme = lush(function(injected_functions)
     return {
         Normal({ fg = c.fg, bg = c.bg }), -- Normal text
         Cursor({ fg = c.bg, bg = c.fg }), -- Character under the cursor
-        CurSearch({ fg = c.bg, bg = colors.teal }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
-        Visual({ bg = colors.selection }), -- Visual mode selection
+        Visual({ bg = c.selection }), -- Visual mode selection
+
+        Search({ fg = c.fg, bg = c.constant }), -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
+        CurSearch({ fg = c.fg, bg = colors.green }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
+        IncSearch({ fg = c.fg, bg = c.string }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 
         Conceal({}), -- Placeholder characters substituted for concealed text (see 'conceallevel')
-        Directory({}), -- Directory names (and other special names in listings)
+        Directory({ fg = colors.green }), -- Directory names (and other special names in listings)
         DiffAdd({ fg = colors.green }), -- Diff mode: Added line |diff.txt|
-        DiffChange({ fg = colors.comment }), -- Diff mode: Changed line |diff.txt|
-        DiffDelete({ fg = colors.red }), -- Diff mode: Deleted line |diff.txt|
+        DiffChange({ fg = c.comment }), -- Diff mode: Changed line |diff.txt|
+        DiffDelete({ fg = c.error }), -- Diff mode: Deleted line |diff.txt|
         DiffText({}), -- Diff mode: Changed text within a changed line |diff.txt|
-        EndOfBuffer({ fg = hsl(colors.comment).darken(20) }), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+        EndOfBuffer({ fg = hsl(c.comment).darken(20) }), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
         TermCursor({ Cursor }), -- Cursor in a focused terminal
         ErrorMsg({ fg = c.warn }), -- Error messages on the command line
         SignColumn({ Normal }), -- Column where |signs| are displayed
-        IncSearch({ fg = c.bg, bg = colors.teal }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
         Substitute({ IncSearch }), -- |:substitute| replacement text highlighting
         CursorLine({}),
         LineNr({ fg = colors.green }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-        LineNrAbove({ fg = colors.comment }), -- Line number for when the 'relativenumber' option is set, above the cursor line
-        LineNrBelow({ fg = colors.comment }), -- Line number for when the 'relativenumber' option is set, below the cursor line
+        LineNrAbove({ fg = c.comment }), -- Line number for when the 'relativenumber' option is set, above the cursor line
+        LineNrBelow({ fg = c.comment }), -- Line number for when the 'relativenumber' option is set, below the cursor line
         CursorLineNr({}), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
         CursorLineFold({}), -- Like FoldColumn when 'cursorline' is set for the cursor line
         CursorLineSign({}), -- Like SignColumn when 'cursorline' is set for the cursor line
@@ -113,13 +117,12 @@ local theme = lush(function(injected_functions)
         PmenuThumb({}), -- Popup menu: Thumb of the scrollbar.
         Question({}), -- |hit-enter| prompt and yes/no questions
         QuickFixLine({}), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-        Search({ fg = c.bg, bg = colors.orange }), -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
         SpecialKey({}), -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
-        SpellBad({ fg = colors.comment }), -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+        SpellBad({ fg = c.comment }), -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
         SpellCap({}), -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
         SpellLocal({}), -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
         SpellRare({}), -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
-        StatusLine({ bg = hsl(c.bg).lighten(2) }), -- Status line of current window
+        StatusLine({ bg = hsl(c.bg).lighten(1) }), -- Status line of current window
         StatusLineNC({ StatusLine }), -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
         TabLine({}), -- Tab pages line, not active tab page label
         TabLineFill({}), -- Tab pages line, where there are no labels
@@ -133,11 +136,11 @@ local theme = lush(function(injected_functions)
         WinBar({}), -- Window bar of current window
         WinBarNC({}), -- Window bar of not-current windows
 
-        Comment({ fg = colors.comment }), -- Any comment
+        Comment({ fg = c.comment }), -- Any comment
         Constant({ fg = c.constant }), -- (*) Any constant
-        Character({ Constant }), --   A character constant: 'c', '\n'
         Boolean({ Constant }), --   A boolean constant: TRUE, false
         String({ fg = c.string }), --   A string constant: "this is a string"
+        Character({ String }), --   A character constant: 'c', '\n'
         Number({ fg = c.number }), --   A number constant: 234, 0xff
         Float({ Number }), --   A floating point constant: 2.3e10
 
@@ -166,7 +169,7 @@ local theme = lush(function(injected_functions)
         Special({ fg = c.special }), -- (*) Any special symbol
         SpecialChar({ Special }), --   Special character in a constant
         Tag({}), --   You can use CTRL-] on this
-        Delimiter({ Normal }), --   Character that needs attention
+        Delimiter({ fg = c.delimiter }), --   Character that needs attention
         SpecialComment({}), --   Special things inside a comment (e.g. '\n')
         Debug({}), --   Debugging statements
 
@@ -216,8 +219,8 @@ local theme = lush(function(injected_functions)
         sym("@text.underline")({ Underlined }), -- Underlined
         sym("@text.todo")({ Todo }), -- Todo
         sym("@comment")({ Comment }), -- Comment
-        sym("@punctuation")({ fg = colors.punc }), -- Delimiter
-        sym("@punctuation.bracket")({ Normal }), -- Delimiter
+        sym("@punctuation")({ fg = c.punc }), -- Delimiter
+        sym("@punctuation.bracket")({ Delimiter }), -- Delimiter
         sym("@constant")({ Constant }), -- Constant
         sym("@constant.builtin")({ Constant }), -- Special
         sym("@constant.macro")({ Define }), -- Define
@@ -232,7 +235,7 @@ local theme = lush(function(injected_functions)
         sym("@boolean")({ Boolean }), -- Boolean
         sym("@float")({ Float }), -- Float
         sym("@function")({ Function }), -- Function
-        sym("@function.builtin")({ Special }), -- Special
+        sym("@function.builtin")({ fg = c.builtinFunc }), -- Special
         sym("@function.macro")({ Macro }), -- Macro
         sym("@parameter")({ Identifier }), -- Identifier
         sym("@method")({ Function }), -- Function
@@ -256,14 +259,17 @@ local theme = lush(function(injected_functions)
         sym("@preproc")({ PreProc }), -- PreProc
         sym("@debug")({ Debug }), -- Debug
         sym("@tag")({ Tag }), --- Tag
+        sym("@lsp.type.parameter")({ Identifier }),
+        sym("@lsp.type.property")({ Identifier }),
+        sym("@lsp.type.variable")({ Identifier }),
 
         GitSignsAdd({ fg = colors.green }),
-        GitSignsChange({ fg = colors.punc }),
-        GitSignsDelete({ fg = colors.brightBlack }),
-        IblIndent({ fg = hsl(94, 22, 15), gui = "nocombine" }),
-        -- IblIndent({ fg = colors.brown, gui = "nocombine" }),
-        IblWhitespace({ fg = hsl(94, 22, 15), gui = "nocombine" }),
-        IblScope({ fg = hsl(72, 27, 23), gui = "nocombine" }),
+        GitSignsChange({ fg = c.punc }),
+        GitSignsDelete({ fg = colors.darkOrange }),
+        -- IblIndent({ fg = hsl(94, 22, 15), gui = "nocombine" }),
+        IblIndent({ fg = hsl(colors.teal).darken(70), gui = "nocombine" }),
+        IblWhitespace({ fg = hsl(colors.teal).darken(70), gui = "nocombine" }),
+        IblScope({ fg = hsl(colors.green).darken(40), gui = "nocombine" }),
 
         -- TodoBGREFACTOR({ fg = c.bg, bg = theme.comment, gui = "bold" }),
         -- TodoFGREFACTOR({ fg = theme.comment }),
