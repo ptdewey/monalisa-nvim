@@ -1,5 +1,4 @@
 local lush = require("lush")
--- local c = require("palette")
 local hsl = lush.hsl
 
 ---@class monalisa.colors
@@ -17,8 +16,8 @@ local hsl = lush.hsl
 local colors = {
     black = "#120b0d",
     brown = "#341b0f",
-    red = "#992a21",
-    -- red = "#ca5443",
+    -- red = "#992a21",
+    red = "#ca5443",
     green = "#636135",
     orange = "#c16e31",
     blue = "#525c5d",
@@ -40,7 +39,7 @@ local colors = {
 
     comment = "#514743",
     punc = "#6a5f3f",
-    selection = "#231a1d",
+    selection = hsl("#231a1d").lighten(5),
 }
 
 local c = {
@@ -60,6 +59,8 @@ local c = {
     info = colors.punc,
     hint = colors.comment,
     ok = colors.brightGreen,
+    builtinType = colors.teal,
+    builtinFunc = colors.orange,
 }
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
@@ -79,12 +80,12 @@ local theme = lush(function(injected_functions)
         DiffChange({ fg = colors.comment }), -- Diff mode: Changed line |diff.txt|
         DiffDelete({ fg = colors.red }), -- Diff mode: Deleted line |diff.txt|
         DiffText({}), -- Diff mode: Changed text within a changed line |diff.txt|
-        EndOfBuffer({}), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+        EndOfBuffer({ fg = hsl(colors.comment).darken(20) }), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
         TermCursor({ Cursor }), -- Cursor in a focused terminal
         ErrorMsg({ fg = c.warn }), -- Error messages on the command line
         SignColumn({ Normal }), -- Column where |signs| are displayed
         IncSearch({ fg = c.bg, bg = colors.teal }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
-        Substitute({}), -- |:substitute| replacement text highlighting
+        Substitute({ IncSearch }), -- |:substitute| replacement text highlighting
         CursorLine({}),
         LineNr({ fg = colors.green }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
         LineNrAbove({ fg = colors.comment }), -- Line number for when the 'relativenumber' option is set, above the cursor line
@@ -114,12 +115,12 @@ local theme = lush(function(injected_functions)
         QuickFixLine({}), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
         Search({ fg = c.bg, bg = colors.orange }), -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
         SpecialKey({}), -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
-        SpellBad({}), -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+        SpellBad({ fg = colors.comment }), -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
         SpellCap({}), -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
         SpellLocal({}), -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
         SpellRare({}), -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
-        StatusLine({}), -- Status line of current window
-        StatusLineNC({}), -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+        StatusLine({ bg = hsl(c.bg).lighten(2) }), -- Status line of current window
+        StatusLineNC({ StatusLine }), -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
         TabLine({}), -- Tab pages line, not active tab page label
         TabLineFill({}), -- Tab pages line, where there are no labels
         TabLineSel({}), -- Tab pages line, active tab page label
@@ -174,12 +175,13 @@ local theme = lush(function(injected_functions)
         Error({ fg = c.error }), -- Any erroneous construct
         Todo({ fg = colors.yellow }), -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
-        LspReferenceText({}), -- Used for highlighting "text" references
+        LspReferenceText({ Normal }), -- Used for highlighting "text" references
         LspReferenceRead({}), -- Used for highlighting "read" references
         LspReferenceWrite({}), -- Used for highlighting "write" references
         LspCodeLens({}), -- Used to color the virtual text of the codelens. See |nvim_buf_set_extmark()|.
         LspCodeLensSeparator({}), -- Used to color the seperator between two or more code lens.
         LspSignatureActiveParameter({}), -- Used to highlight the active parameter in the signature help. See |vim.lsp.handlers.signature_help()|.
+        LspInlayHint({ Comment }),
 
         DiagnosticError({ fg = c.error }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
         DiagnosticWarn({ fg = c.warn }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
@@ -245,6 +247,7 @@ local theme = lush(function(injected_functions)
         sym("@exception")({ Exception }), -- Exception
         sym("@variable")({ Identifier }), -- Identifier
         sym("@type")({ Type }), -- Type
+        sym("@type.builtin")({ fg = c.builtinType }), -- Type
         sym("@type.definition")({ Typedef }), -- Typedef
         sym("@storageclass")({ StorageClass }), -- StorageClass
         sym("@structure")({ Type }), -- Structure
@@ -252,8 +255,11 @@ local theme = lush(function(injected_functions)
         sym("@include")({ Include }), -- Include
         sym("@preproc")({ PreProc }), -- PreProc
         sym("@debug")({ Debug }), -- Debug
-        sym("@tag")({ Tag }), -- Tag
+        sym("@tag")({ Tag }), --- Tag
 
+        GitSignsAdd({ fg = colors.green }),
+        GitSignsChange({ fg = colors.punc }),
+        GitSignsDelete({ fg = colors.brightBlack }),
         IblIndent({ fg = hsl(94, 22, 15), gui = "nocombine" }),
         -- IblIndent({ fg = colors.brown, gui = "nocombine" }),
         IblWhitespace({ fg = hsl(94, 22, 15), gui = "nocombine" }),
