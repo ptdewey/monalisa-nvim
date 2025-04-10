@@ -49,10 +49,10 @@ local c = {
     string = colors.darkYellow,
     special = colors.darkOrange,
     keyword = colors.brightGreen,
-    func = colors.darkOrange,
-    type = colors.green,
+    func = colors.green,
+    type = colors.darkOrange,
     builtinType = colors.blueGreen,
-    builtinFunc = colors.green, -- TODO: decide between green, teal, blueGreen
+    builtinFunc = colors.darkOrange, -- TODO: decide between green, teal, blueGreen
     field = colors.teal, -- TODO: figure out this one between teal, orange, darkYellow
 
     error = colors.crimson,
@@ -103,18 +103,18 @@ local theme = lush(function(injected_functions)
         MsgSeparator({}), -- Separator for scrolled messages, `msgsep` flag of 'display'
         MoreMsg({}), -- |more-prompt|
         NonText({}), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-        NormalFloat({}), -- Normal text in floating windows.
+        NormalFloat({ Normal }), -- Normal text in floating windows.
         FloatBorder({}), -- Border of floating windows.
         FloatTitle({}), -- Title of floating windows.
         NormalNC({}), -- normal text in non-current windows
-        Pmenu({}), -- Popup menu: Normal item.
-        PmenuSel({}), -- Popup menu: Selected item.
-        PmenuKind({}), -- Popup menu: Normal item "kind"
-        PmenuKindSel({}), -- Popup menu: Selected item "kind"
-        PmenuExtra({}), -- Popup menu: Normal item "extra text"
-        PmenuExtraSel({}), -- Popup menu: Selected item "extra text"
-        PmenuSbar({}), -- Popup menu: Scrollbar.
-        PmenuThumb({}), -- Popup menu: Thumb of the scrollbar.
+        Pmenu({ Normal }), -- Popup menu: Normal item.
+        PmenuSel({ fg = c.fg, bg = colors.brightGreen }), -- Popup menu: Selected item.
+        PmenuKind({ Pmenu }), -- Popup menu: Normal item "kind"
+        PmenuKindSel({ PmenuSel }), -- Popup menu: Selected item "kind"
+        PmenuExtra({ Pmenu }), -- Popup menu: Normal item "extra text"
+        PmenuExtraSel({ Pmenu }), -- Popup menu: Selected item "extra text"
+        PmenuSbar({ Normal }), -- Popup menu: Scrollbar.
+        PmenuThumb({ Normal }), -- Popup menu: Thumb of the scrollbar.
         Question({}), -- |hit-enter| prompt and yes/no questions
         QuickFixLine({}), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
         SpecialKey({}), -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
@@ -156,11 +156,11 @@ local theme = lush(function(injected_functions)
         Exception({ Statement }), --   try, catch, throw
         Operator({ fg = c.operator }), --   "sizeof", "+", "*", etc.
 
-        PreProc({}), -- (*) Generic Preprocessor
-        Include({}), --   Preprocessor #include
-        Define({}), --   Preprocessor #define
-        Macro({}), --   Same as Define
-        PreCondit({}), --   Preprocessor #if, #else, #endif, etc.
+        PreProc({ fg = c.builtinType }), -- (*) Generic Preprocessor
+        Include({ PreProc }), --   Preprocessor #include
+        Define({ PreProc }), --   Preprocessor #define
+        Macro({ PreProc }), --   Same as Define
+        PreCondit({ PreProc }), --   Preprocessor #if, #else, #endif, etc.
 
         Type({ fg = c.type }), -- (*) int, long, char, etc.
         StorageClass({ Type }), --   static, register, volatile, etc.
@@ -263,6 +263,9 @@ local theme = lush(function(injected_functions)
         sym("@lsp.type.property")({ Identifier }),
         sym("@lsp.type.variable")({ Identifier }),
 
+        sym("@lsp.type.derive")({ fg = colors.teal }),
+        sym("@punctuation.special.rust")({ PreProc }),
+
         GitSignsAdd({ fg = colors.green }),
         GitSignsChange({ fg = c.punc }),
         GitSignsDelete({ fg = colors.darkOrange }),
@@ -270,13 +273,6 @@ local theme = lush(function(injected_functions)
         IblIndent({ fg = hsl(colors.teal).darken(70), gui = "nocombine" }),
         IblWhitespace({ fg = hsl(colors.teal).darken(70), gui = "nocombine" }),
         IblScope({ fg = hsl(colors.green).darken(40), gui = "nocombine" }),
-
-        -- TodoBGREFACTOR({ fg = c.bg, bg = theme.comment, gui = "bold" }),
-        -- TodoFGREFACTOR({ fg = theme.comment }),
-        -- TodoBGTODO({ TodoBGREFACTOR }),
-        -- TodoFGTODO({ TodoFGREFACTOR }),
-        -- TodoBGTODO({ fg = c.bg, bg = theme.yellow, gui = "bold" }),
-        -- TodoFGTODO({ Todo }),
     }
 end)
 
