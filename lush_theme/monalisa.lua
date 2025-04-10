@@ -118,7 +118,8 @@ local theme = lush(function(injected_functions)
         Question({}), -- |hit-enter| prompt and yes/no questions
         QuickFixLine({}), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
         SpecialKey({}), -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
-        SpellBad({ fg = c.comment }), -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+        -- SpellBad({ fg = c.comment }), -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+        SpellBad({}), -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
         SpellCap({}), -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
         SpellLocal({}), -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
         SpellRare({}), -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
@@ -168,7 +169,7 @@ local theme = lush(function(injected_functions)
 
         Special({ fg = c.special }), -- (*) Any special symbol
         SpecialChar({ Special }), --   Special character in a constant
-        Tag({}), --   You can use CTRL-] on this
+        Tag({ Special }), --   You can use CTRL-] on this
         Delimiter({ fg = c.delimiter }), --   Character that needs attention
         SpecialComment({}), --   Special things inside a comment (e.g. '\n')
         Debug({}), --   Debugging statements
@@ -265,11 +266,33 @@ local theme = lush(function(injected_functions)
 
         sym("@lsp.type.derive")({ fg = colors.teal }),
         sym("@punctuation.special.rust")({ PreProc }),
+        sym("@property.lua")({ Identifier }),
+        sym("@markup.link")({ fg = hsl(72, 27, 40) }),
+        sym("@markup.list")({ Operator }),
+        sym("@markup.heading")({ Special }),
+        sym("@marup.raw.block.markdown")({ Special }),
+        sym("@html.comment")({ Comment }),
+        sym("@tag.html")({ Special }),
+
+        -- Plugins
+        markdownBold({ gui = "bold" }),
+        markdownItalic({ gui = "italic" }),
+
+        FzfLuaSearch({ IncSearch }),
+        FzfLuaCursorLineNr({ CursorLineNr }),
+        FzfLuaScrollFloatEmpty({ PmenuSbar }),
+        FzfLuaScrollFloatFull({ PmenuThumb }),
+        FzfLuaCursorLine({ CursorLine }),
+        FzfLuaCursor({ Cursor }),
+        FzfLuaNormal({ Normal }),
+        FzfLuaBorder({ Normal }),
+        FzfLuaNormal({ Normal }),
+        FzfLuaBorder({ Normal }),
 
         GitSignsAdd({ fg = colors.green }),
         GitSignsChange({ fg = c.punc }),
         GitSignsDelete({ fg = colors.darkOrange }),
-        -- IblIndent({ fg = hsl(94, 22, 15), gui = "nocombine" }),
+
         IblIndent({ fg = hsl(colors.teal).darken(70), gui = "nocombine" }),
         IblWhitespace({ fg = hsl(colors.teal).darken(70), gui = "nocombine" }),
         IblScope({ fg = hsl(colors.green).darken(40), gui = "nocombine" }),
