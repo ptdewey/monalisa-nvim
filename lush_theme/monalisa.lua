@@ -197,11 +197,11 @@ local theme = lush(function(injected_functions)
         DiagnosticVirtualTextInfo({ DiagnosticInfo }), -- Used for "Info" diagnostic virtual text.
         DiagnosticVirtualTextHint({ DiagnosticHint }), -- Used for "Hint" diagnostic virtual text.
         DiagnosticVirtualTextOk({ DiagnosticOk }), -- Used for "Ok" diagnostic virtual text.
-        DiagnosticUnderlineError({}), -- Used to underline "Error" diagnostics.
-        DiagnosticUnderlineWarn({}), -- Used to underline "Warn" diagnostics.
-        DiagnosticUnderlineInfo({}), -- Used to underline "Info" diagnostics.
-        DiagnosticUnderlineHint({}), -- Used to underline "Hint" diagnostics.
-        DiagnosticUnderlineOk({}), -- Used to underline "Ok" diagnostics.
+        DiagnosticUnderlineError({ Underlined }), -- Used to underline "Error" diagnostics.
+        DiagnosticUnderlineWarn({ Underlined }), -- Used to underline "Warn" diagnostics.
+        DiagnosticUnderlineInfo({ Underlined }), -- Used to underline "Info" diagnostics.
+        DiagnosticUnderlineHint({ Underlined }), -- Used to underline "Hint" diagnostics.
+        DiagnosticUnderlineOk({ Underlined }), -- Used to underline "Ok" diagnostics.
         DiagnosticFloatingError({ DiagnosticError }), -- Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
         DiagnosticFloatingWarn({ DiagnosticWarn }), -- Used to color "Warn" diagnostic messages in diagnostics float.
         DiagnosticFloatingInfo({ DiagnosticInfo }), -- Used to color "Info" diagnostic messages in diagnostics float.
