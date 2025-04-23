@@ -127,7 +127,7 @@ local theme = lush(function(injected_functions)
         StatusLineNC({ StatusLine }), -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
         TabLine({}), -- Tab pages line, not active tab page label
         TabLineFill({}), -- Tab pages line, where there are no labels
-        TabLineSel({}), -- Tab pages line, active tab page label
+        TabLineSel({ bg = c.builtinType }), -- Tab pages line, active tab page label
         Title({}), -- Titles for output from ":set all", ":autocmd" etc.
         VisualNOS({}), -- Visual mode selection when vim is "Not Owning the Selection".
         WarningMsg({}), -- Warning messages
