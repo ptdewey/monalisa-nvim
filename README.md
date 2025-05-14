@@ -4,7 +4,7 @@
 
 ![MonaLisa Screenshot with a few windows](./assets/screenshot1.png)
 
-Inspired by the painting and hte iterm2 theme.
+Inspired by the painting and the iterm2 theme.
 
 > [!NOTE]
 > This theme is still a work in progress, and colors may change in the near future.
