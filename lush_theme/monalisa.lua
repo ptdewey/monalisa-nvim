@@ -128,7 +128,7 @@ local theme = lush(function(injected_functions)
         TabLine({}), -- Tab pages line, not active tab page label
         TabLineFill({}), -- Tab pages line, where there are no labels
         TabLineSel({ bg = c.builtinType }), -- Tab pages line, active tab page label
-        Title({}), -- Titles for output from ":set all", ":autocmd" etc.
+        Title({ fg = c.builtinType }), -- Titles for output from ":set all", ":autocmd" etc.
         VisualNOS({}), -- Visual mode selection when vim is "Not Owning the Selection".
         WarningMsg({}), -- Warning messages
         Whitespace({}), -- "nbsp", "space", "tab" and "trail" in 'listchars'
@@ -269,7 +269,7 @@ local theme = lush(function(injected_functions)
         sym("@property.lua")({ Identifier }),
         sym("@markup.link")({ fg = hsl(72, 27, 40) }),
         sym("@markup.list")({ Operator }),
-        sym("@markup.heading")({ Special }),
+        sym("@markup.heading")({ Title }),
         sym("@marup.raw.block.markdown")({ Special }),
         sym("@html.comment")({ Comment }),
         sym("@tag.html")({ Special }),
