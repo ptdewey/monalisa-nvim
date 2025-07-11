@@ -33,10 +33,12 @@ local colors = {
     darkOrange = "#9a5727",
     blueGreen = "#5D6C5A",
     darkYellow = "#bb8a3e",
+    brightBlue = "#9eb2b4",
 
     comment = "#514743",
     punc = "#6a5f3f",
     selection = "#2F2327",
+    lightBlack = "#362127",
 }
 
 local c = {
@@ -104,9 +106,9 @@ local theme = lush(function(injected_functions)
         MoreMsg({}), -- |more-prompt|
         NonText({}), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
         NormalFloat({ Normal }), -- Normal text in floating windows.
-        FloatBorder({}), -- Border of floating windows.
-        FloatTitle({}), -- Title of floating windows.
-        NormalNC({}), -- normal text in non-current windows
+        FloatBorder({ fg = colors.teal }), -- Border of floating windows.
+        FloatTitle({ fg = colors.brightGreen }), -- Title of floating windows.
+        NormalNC({ Normal }), -- normal text in non-current windows
         Pmenu({ Normal }), -- Popup menu: Normal item.
         PmenuSel({ fg = c.fg, bg = colors.brightGreen }), -- Popup menu: Selected item.
         PmenuKind({ Pmenu }), -- Popup menu: Normal item "kind"
@@ -125,9 +127,11 @@ local theme = lush(function(injected_functions)
         SpellRare({}), -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
         StatusLine({ bg = hsl(c.bg).lighten(1) }), -- Status line of current window
         StatusLineNC({ StatusLine }), -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-        TabLine({}), -- Tab pages line, not active tab page label
-        TabLineFill({}), -- Tab pages line, where there are no labels
-        TabLineSel({ bg = c.builtinType }), -- Tab pages line, active tab page label
+        TabLine({ bg = colors.selection }), -- Tab pages line, not active tab page label
+        TabLineSel({ bg = colors.green, gui = "bold" }), -- Tab pages line, active tab page label
+        TabLineSep({ fg = colors.selection, bg = c.bg }),
+        TabLineSelSep({ fg = colors.green, gui = "bold", bg = c.bg }), -- Tab pages line, active tab page label
+        TabLineFill({ fg = colors.tan, bg = c.bg }), -- Tab pages line, where there are no labels
         Title({ fg = c.builtinType }), -- Titles for output from ":set all", ":autocmd" etc.
         VisualNOS({}), -- Visual mode selection when vim is "Not Owning the Selection".
         WarningMsg({}), -- Warning messages
@@ -267,6 +271,7 @@ local theme = lush(function(injected_functions)
         sym("@lsp.type.derive")({ fg = colors.teal }),
         sym("@punctuation.special.rust")({ PreProc }),
         sym("@property.lua")({ Identifier }),
+        sym("@constructor.lua")({ fg = colors.orange }),
         sym("@markup.link")({ fg = hsl(72, 27, 40) }),
         sym("@markup.list")({ Operator }),
         sym("@markup.heading")({ Title }),
@@ -285,9 +290,8 @@ local theme = lush(function(injected_functions)
         FzfLuaCursorLine({ CursorLine }),
         FzfLuaCursor({ Cursor }),
         FzfLuaNormal({ Normal }),
-        FzfLuaBorder({ Normal }),
-        FzfLuaNormal({ Normal }),
-        FzfLuaBorder({ Normal }),
+        FzfLuaBorder({ fg = colors.brightGreen }),
+        FzfLuaTitle({ fg = colors.teal }),
 
         GitSignsAdd({ fg = colors.green }),
         GitSignsChange({ fg = c.punc }),
@@ -296,6 +300,17 @@ local theme = lush(function(injected_functions)
         IblIndent({ fg = hsl(colors.teal).darken(70), gui = "nocombine" }),
         IblWhitespace({ fg = hsl(colors.teal).darken(70), gui = "nocombine" }),
         IblScope({ fg = hsl(colors.green).darken(40), gui = "nocombine" }),
+
+        -- mini.nvim
+        MiniTablineCurrent({ TabLineSel }),
+        MiniTablineHidden({ bg = colors.lightBlack }),
+        MiniTablineVisible({ MiniTablineHidden }),
+        MiniTablineModifiedCurrent({ bg = colors.blueGreen, gui = "bold" }),
+        MiniTablineModifiedHidden({
+            bg = colors.lightBlack,
+            fg = colors.darkYellow,
+        }),
+        MiniTablineModifiedVisible({ MiniTablineModifiedHidden }),
     }
 end)
 
