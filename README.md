@@ -36,4 +36,4 @@ vim.cmd.colorscheme("monalisa")
     - With `fennel`: Use `./build.sh` or `just build`
     - With `hotpot.nvim`: Builds are automatic upon saving `fnl/monalisa/init.fnl`
 
-Note: The version of monalisa made with [lush](https://github.com/rktjmp/lush.nvim) can be found on the [v1 branch](https://github.com/ptdewey/monalisa-nvim/tree/v2)
+Note: The version of monalisa made with [lush](https://github.com/rktjmp/lush.nvim) can be found on the [v1 branch](https://github.com/ptdewey/monalisa-nvim/tree/v1)
