@@ -1,7 +1,3 @@
 #!/usr/bin/env bash
 
-export LUA_PATH=./lush_theme/monalisa.lua
-
-nvim --headless +Shipwright +qa
-
-echo "MonaLisa build complete"
+fennel --compile fnl/monalisa/init.fnl &> colors/monalisa.lua

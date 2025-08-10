@@ -1,230 +1,206 @@
-local colors = {
-    -- content here will not be touched
-    -- PATCH_OPEN
-Normal = {fg = "#ffe598", bg = "#120b0d"},
-FzfLuaNormal = {link = "Normal"},
-LspReferenceText = {link = "Normal"},
-NormalFloat = {link = "Normal"},
-NormalNC = {link = "Normal"},
-Pmenu = {link = "Normal"},
-PmenuSbar = {link = "Normal"},
-PmenuThumb = {link = "Normal"},
-SignColumn = {link = "Normal"},
-["@boolean"] = {link = "Boolean"},
-["@character"] = {link = "Character"},
-Comment = {fg = "#514743"},
-Ignore = {link = "Comment"},
-LspInlayHint = {link = "Comment"},
-["@comment"] = {link = "Comment"},
-["@html.comment"] = {link = "Comment"},
-["@text.literal"] = {link = "Comment"},
-Conceal = {},
-["@conditional"] = {link = "Conditional"},
-Constant = {fg = "#9e333f"},
-Boolean = {link = "Constant"},
-["@constant"] = {link = "Constant"},
-["@constant.builtin"] = {link = "Constant"},
-CurSearch = {fg = "#ffe598", bg = "#636135"},
-Cursor = {fg = "#120b0d", bg = "#ffe598"},
-FzfLuaCursor = {link = "Cursor"},
-TermCursor = {link = "Cursor"},
-CursorLine = {},
-FzfLuaCursorLine = {link = "CursorLine"},
-CursorLineFold = {},
-CursorLineNr = {},
-FzfLuaCursorLineNr = {link = "CursorLineNr"},
-CursorLineSign = {},
-Debug = {},
-["@debug"] = {link = "Debug"},
-["@constant.macro"] = {link = "Define"},
-["@define"] = {link = "Define"},
-Delimiter = {fg = "#ffe598"},
-["@punctuation.bracket"] = {link = "Delimiter"},
-DiagnosticError = {fg = "#9e333f"},
-DiagnosticFloatingError = {link = "DiagnosticError"},
-DiagnosticSignError = {link = "DiagnosticError"},
-DiagnosticVirtualTextError = {link = "DiagnosticError"},
-DiagnosticHint = {fg = "#514743"},
-DiagnosticFloatingHint = {link = "DiagnosticHint"},
-DiagnosticSignHint = {link = "DiagnosticHint"},
-DiagnosticVirtualTextHint = {link = "DiagnosticHint"},
-DiagnosticInfo = {fg = "#5D6C5A"},
-DiagnosticFloatingInfo = {link = "DiagnosticInfo"},
-DiagnosticSignInfo = {link = "DiagnosticInfo"},
-DiagnosticVirtualTextInfo = {link = "DiagnosticInfo"},
-DiagnosticOk = {fg = "#928f4e"},
-DiagnosticFloatingOk = {link = "DiagnosticOk"},
-DiagnosticSignOk = {link = "DiagnosticOk"},
-DiagnosticVirtualTextOk = {link = "DiagnosticOk"},
-DiagnosticWarn = {fg = "#9a5727"},
-DiagnosticFloatingWarn = {link = "DiagnosticWarn"},
-DiagnosticSignWarn = {link = "DiagnosticWarn"},
-DiagnosticVirtualTextWarn = {link = "DiagnosticWarn"},
-DiffAdd = {fg = "#636135"},
-DiffChange = {fg = "#514743"},
-DiffDelete = {fg = "#9e333f"},
-DiffText = {},
-Directory = {fg = "#636135"},
-EndOfBuffer = {fg = "#403835"},
-Error = {fg = "#9e333f"},
-ErrorMsg = {fg = "#9a5727"},
-["@exception"] = {link = "Exception"},
-Field = {fg = "#476746"},
-["@field"] = {link = "Field"},
-["@property"] = {link = "Field"},
-["@float"] = {link = "Float"},
-FloatBorder = {fg = "#476746"},
-FloatTitle = {fg = "#928f4e"},
-Function = {fg = "#636135"},
-["@function"] = {link = "Function"},
-["@method"] = {link = "Function"},
-FzfLuaBorder = {fg = "#928f4e"},
-FzfLuaTitle = {fg = "#476746"},
-GitSignsAdd = {fg = "#636135"},
-GitSignsChange = {fg = "#6a5f3f"},
-GitSignsDelete = {fg = "#9a5727"},
-IblIndent = {fg = "#151E15", nocombine = true},
-IblScope = {fg = "#3C3A20", nocombine = true},
-IblWhitespace = {fg = "#151E15", nocombine = true},
-Identifier = {fg = "#ffe598"},
-["@lsp.type.parameter"] = {link = "Identifier"},
-["@lsp.type.property"] = {link = "Identifier"},
-["@lsp.type.variable"] = {link = "Identifier"},
-["@namespace"] = {link = "Identifier"},
-["@parameter"] = {link = "Identifier"},
-["@property.lua"] = {link = "Identifier"},
-["@text.reference"] = {link = "Identifier"},
-["@variable"] = {link = "Identifier"},
-IncSearch = {fg = "#ffe598", bg = "#bb8a3e"},
-FzfLuaSearch = {link = "IncSearch"},
-Substitute = {link = "IncSearch"},
-["@include"] = {link = "Include"},
-Keyword = {fg = "#928f4e"},
-Statement = {link = "Keyword"},
-["@keyword"] = {link = "Keyword"},
-["@label"] = {link = "Label"},
-LineNr = {fg = "#636135"},
-LineNrAbove = {fg = "#514743"},
-LineNrBelow = {fg = "#514743"},
-LspCodeLens = {},
-LspCodeLensSeparator = {},
-LspReferenceRead = {},
-LspReferenceWrite = {},
-LspSignatureActiveParameter = {},
-["@function.macro"] = {link = "Macro"},
-["@macro"] = {link = "Macro"},
-MatchParen = {},
-MiniTablineHidden = {bg = "#362127"},
-MiniTablineVisible = {link = "MiniTablineHidden"},
-MiniTablineModifiedCurrent = {bg = "#5D6C5A", bold = true},
-MiniTablineModifiedHidden = {fg = "#bb8a3e", bg = "#362127"},
-MiniTablineModifiedVisible = {link = "MiniTablineModifiedHidden"},
-ModeMsg = {},
-MoreMsg = {},
-MsgArea = {},
-MsgSeparator = {},
-NonText = {},
-Number = {fg = "#9e333f"},
-Float = {link = "Number"},
-["@number"] = {link = "Number"},
-Operator = {fg = "#5D6C5A"},
-["@markup.list"] = {link = "Operator"},
-["@operator"] = {link = "Operator"},
-PmenuExtra = {link = "Pmenu"},
-PmenuExtraSel = {link = "Pmenu"},
-PmenuKind = {link = "Pmenu"},
-FzfLuaScrollFloatEmpty = {link = "PmenuSbar"},
-PmenuSel = {fg = "#ffe598", bg = "#928f4e"},
-PmenuKindSel = {link = "PmenuSel"},
-FzfLuaScrollFloatFull = {link = "PmenuThumb"},
-PreProc = {fg = "#5D6C5A"},
-Define = {link = "PreProc"},
-Include = {link = "PreProc"},
-Macro = {link = "PreProc"},
-PreCondit = {link = "PreProc"},
-["@preproc"] = {link = "PreProc"},
-["@punctuation.special.rust"] = {link = "PreProc"},
-Question = {},
-QuickFixLine = {},
-["@repeat"] = {link = "Repeat"},
-Search = {fg = "#ffe598", bg = "#9e333f"},
-Special = {fg = "#9a5727"},
-SpecialChar = {link = "Special"},
-Tag = {link = "Special"},
-["@constructor"] = {link = "Special"},
-["@marup.raw.block.markdown"] = {link = "Special"},
-["@tag.html"] = {link = "Special"},
-["@string.escape"] = {link = "SpecialChar"},
-["@string.special"] = {link = "SpecialChar"},
-SpecialComment = {},
-["@character.special"] = {link = "SpecialComment"},
-SpecialKey = {},
-SpellBad = {},
-SpellCap = {},
-SpellLocal = {},
-SpellRare = {},
-Conditional = {link = "Statement"},
-Exception = {link = "Statement"},
-Label = {link = "Statement"},
-Repeat = {link = "Statement"},
-StatusLine = {bg = "#160E10"},
-StatusLineNC = {link = "StatusLine"},
-["@storageclass"] = {link = "StorageClass"},
-String = {fg = "#bb8a3e"},
-Character = {link = "String"},
-["@string"] = {link = "String"},
-TabLine = {bg = "#2F2327"},
-TabLineFill = {fg = "#ffe598", bg = "#120b0d"},
-TabLineSel = {bg = "#636135", bold = true},
-MiniTablineCurrent = {link = "TabLineSel"},
-TabLineSelSep = {fg = "#636135", bg = "#120b0d", bold = true},
-TabLineSep = {fg = "#2F2327", bg = "#120b0d"},
-["@tag"] = {link = "Tag"},
-Title = {fg = "#5D6C5A"},
-["@markup.heading"] = {link = "Title"},
-["@text.title"] = {link = "Title"},
-Todo = {},
-["@text.todo"] = {link = "Todo"},
-Type = {fg = "#9a5727"},
-StorageClass = {link = "Type"},
-Typedef = {link = "Type"},
-["@structure"] = {link = "Type"},
-["@type"] = {link = "Type"},
-["@type.definition"] = {link = "Typedef"},
-Underlined = {underline = true},
-DiagnosticUnderlineError = {link = "Underlined"},
-DiagnosticUnderlineHint = {link = "Underlined"},
-DiagnosticUnderlineInfo = {link = "Underlined"},
-DiagnosticUnderlineOk = {link = "Underlined"},
-DiagnosticUnderlineWarn = {link = "Underlined"},
-["@text.underline"] = {link = "Underlined"},
-["@text.uri"] = {link = "Underlined"},
-Visual = {bg = "#2F2327"},
-VisualNOS = {},
-WarningMsg = {},
-Whitespace = {},
-WildMenu = {},
-WinBar = {},
-WinBarNC = {},
-Winseparator = {},
-markdownBold = {bold = true},
-markdownItalic = {italic = true},
-["@constructor.lua"] = {fg = "#c16e31"},
-["@function.builtin"] = {fg = "#9a5727"},
-["@lsp.type.derive"] = {fg = "#476746"},
-["@markup.link"] = {fg = "#77824A"},
-["@punctuation"] = {fg = "#6a5f3f"},
-["@type.builtin"] = {fg = "#5D6C5A"},
-    -- PATCH_CLOSE
-    -- content here will not be touched
-}
-
--- colorschemes generally want to do this
+local theme = {}
+theme["Normal"] = {bg = "#120b0d", fg = "#f6d666"}
+theme["Identifier"] = {fg = "#f6d666"}
+theme["@variable"] = {link = "Identifier"}
+theme["@lsp.type.parameter"] = {link = "Identifier"}
+theme["@lsp.type.property"] = {link = "Identifier"}
+theme["@lsp.type.variable"] = {link = "Identifier"}
+theme["@namespace"] = {link = "Identifier"}
+theme["@parameter"] = {link = "Identifier"}
+theme["@text.reference"] = {link = "Identifier"}
+theme["Visual"] = {bg = "#2F2327"}
+theme["Function"] = {fg = "#636135"}
+theme["@function"] = {link = "Function"}
+theme["@method"] = {link = "Function"}
+theme["@function.builtin"] = {link = "Function"}
+theme["@function.macro"] = {link = "Function"}
+theme["Statement"] = {fg = "#928f4e"}
+theme["Keyword"] = {fg = "#928f4e"}
+theme["@keyword"] = {link = "Keyword"}
+theme["Conditional"] = {link = "Statement"}
+theme["Repeat"] = {link = "Statement"}
+theme["Label"] = {link = "Statement"}
+theme["Exception"] = {link = "Statement"}
+theme["@conditional"] = {link = "Conditional"}
+theme["@repeat"] = {link = "Repeat"}
+theme["@label"] = {link = "Label"}
+theme["@exception"] = {link = "Exception"}
+theme["Type"] = {fg = "#9a5727"}
+theme["StorageClass"] = {fg = "#9a5727"}
+theme["Typedef"] = {fg = "#9a5727"}
+theme["@type"] = {link = "Type"}
+theme["@type.builtin"] = {link = "Type"}
+theme["@type.definition"] = {link = "Typedef"}
+theme["@storageclass"] = {link = "StorageClass"}
+theme["@structure"] = {link = "Type"}
+theme["Constant"] = {fg = "#9e333f"}
+theme["@constant"] = {link = "Constant"}
+theme["@constant.builtin"] = {link = "Constant"}
+theme["Boolean"] = {link = "Constant"}
+theme["String"] = {fg = "#bb8a3e"}
+theme["Character"] = {fg = "#bb8a3e"}
+theme["@string"] = {link = "String"}
+theme["@string.escape"] = {link = "String"}
+theme["@string.special"] = {link = "String"}
+theme["@character"] = {link = "Character"}
+theme["Number"] = {fg = "#9e333f"}
+theme["Float"] = {fg = "#9e333f"}
+theme["@number"] = {link = "Number"}
+theme["@boolean"] = {link = "Boolean"}
+theme["@float"] = {link = "Float"}
+theme["Operator"] = {fg = "#5D6C5A"}
+theme["@operator"] = {link = "Operator"}
+theme["Delimiter"] = {fg = "#6a5f3f"}
+theme["@punctuation"] = {link = "Delimiter"}
+theme["DelimiterLight"] = {fg = "#a18954"}
+theme["@punctuation.bracket"] = {link = "DelimiterLight"}
+theme["Special"] = {fg = "#9a5727"}
+theme["SpecialChar"] = {fg = "#9a5727"}
+theme["Tag"] = {fg = "#9a5727"}
+theme["@constructor"] = {link = "Special"}
+theme["@tag"] = {link = "Special"}
+theme["PreProc"] = {fg = "#5D6C5A"}
+theme["Include"] = {fg = "#5D6C5A"}
+theme["Define"] = {fg = "#5D6C5A"}
+theme["Macro"] = {fg = "#5D6C5A"}
+theme["PreCondit"] = {fg = "#5D6C5A"}
+theme["@include"] = {link = "Include"}
+theme["@preproc"] = {link = "PreProc"}
+theme["@define"] = {link = "Define"}
+theme["@macro"] = {link = "Macro"}
+theme["Comment"] = {fg = "#514743"}
+theme["@comment"] = {link = "Comment"}
+theme["@text.literal"] = {link = "Comment"}
+theme["Ignore"] = {link = "Comment"}
+theme["Conceal"] = {link = "Comment"}
+theme["Cursor"] = {bg = "#f6d666", fg = "#120b0d"}
+theme["TermCursor"] = {link = "Cursor"}
+theme["Search"] = {bg = "#9e333f", fg = "#f6d666"}
+theme["CurSearch"] = {bg = "#636135", fg = "#f6d666"}
+theme["IncSearch"] = {bg = "#bb8a3e", fg = "#f6d666"}
+theme["DiffText"] = {link = "Visual"}
+theme["DiffAdd"] = {fg = "#928f4e"}
+theme["@text.diff.add"] = {link = "DiffAdd"}
+theme["Added"] = {link = "DiffAdd"}
+theme["DiffAdded"] = {link = "Added"}
+theme["@diff.plus"] = {link = "Added"}
+theme["DiffChange"] = {fg = "#6a5f3f"}
+theme["@text.diff.change"] = {link = "DiffChange"}
+theme["Changed"] = {link = "DiffChange"}
+theme["DiffChanged"] = {link = "Changed"}
+theme["@diff.delta"] = {link = "Changed"}
+theme["DiffDelete"] = {fg = "#9e333f"}
+theme["@text.diff.delete"] = {link = "DiffDelete"}
+theme["Removed"] = {link = "DiffDelete"}
+theme["DiffRemoved"] = {link = "Removed"}
+theme["@diff.minus"] = {link = "Removed"}
+theme["LineNr"] = {fg = "#636135"}
+theme["LineNrAbove"] = {fg = "#514743"}
+theme["LineNrBelow"] = {fg = "#514743"}
+theme["CursorLineNr"] = {fg = "#636135"}
+theme["CursorLine"] = {bg = "#120b0d"}
+theme["StatusLine"] = {bg = "#362127"}
+theme["StatusLineNC"] = {link = "StatusLine"}
+theme["TabLine"] = {bg = "#2F2327"}
+theme["TabLineSel"] = {bg = "#636135", bold = true}
+theme["TabLineSep"] = {bg = "#120b0d", fg = "#2F2327"}
+theme["TabLineSelSep"] = {bg = "#120b0d", bold = true, fg = "#636135"}
+theme["TabLineFill"] = {bg = "#120b0d", fg = "#f6d666"}
+theme["Pmenu"] = {link = "Normal"}
+theme["PmenuSel"] = {bg = "#928f4e", fg = "#f6d666"}
+theme["PmenuKind"] = {link = "Pmenu"}
+theme["PmenuKindSel"] = {link = "PmenuSel"}
+theme["PmenuExtra"] = {link = "Pmenu"}
+theme["PmenuExtraSel"] = {link = "Pmenu"}
+theme["PmenuSbar"] = {link = "Normal"}
+theme["PmenuThumb"] = {link = "Normal"}
+theme["FloatBorder"] = {fg = "#476746"}
+theme["FloatTitle"] = {fg = "#928f4e"}
+theme["Title"] = {fg = "#5D6C5A"}
+theme["Directory"] = {fg = "#636135"}
+theme["ErrorMsg"] = {fg = "#9a5727"}
+theme["Underlined"] = {underline = true}
+theme["Error"] = {fg = "#9e333f"}
+theme["Todo"] = {fg = "#bb8a3e"}
+theme["SpecialComment"] = {link = "Comment"}
+theme["Debug"] = {link = "Special"}
+theme["TermCursor"] = {link = "Cursor"}
+theme["Substitute"] = {link = "IncSearch"}
+theme["MatchParen"] = {link = "Normal"}
+theme["NonText"] = {link = "Comment"}
+theme["EndOfBuffer"] = {link = "Comment"}
+theme["VisualNOS"] = {link = "Visual"}
+theme["WarningMsg"] = {fg = "#c16e31"}
+theme["MoreMsg"] = {bold = true, fg = "#525c5d"}
+theme["NormalFloat"] = {link = "Normal"}
+theme["@field"] = {link = "Field"}
+theme["@property"] = {link = "Field"}
+theme["Field"] = {fg = "#476746"}
+theme["@function.builtin"] = {link = "Function"}
+theme["@constant.macro"] = {link = "Define"}
+theme["@string.escape"] = {link = "String"}
+theme["@string.special"] = {link = "String"}
+theme["@character.special"] = {link = "String"}
+theme["@text.title"] = {link = "Title"}
+theme["@text.uri"] = {link = "Underlined"}
+theme["@text.underline"] = {link = "Underlined"}
+theme["@text.todo"] = {link = "Todo"}
+theme["LspReferenceText"] = {link = "Normal"}
+theme["LspReferenceRead"] = {link = "Normal"}
+theme["LspReferenceWrite"] = {link = "Normal"}
+theme["LspInlayHint"] = {link = "Comment"}
+theme["DiagnosticError"] = {fg = "#9e333f"}
+theme["DiagnosticWarn"] = {fg = "#9a5727"}
+theme["DiagnosticInfo"] = {fg = "#5D6C5A"}
+theme["DiagnosticHint"] = {fg = "#514743"}
+theme["DiagnosticOk"] = {fg = "#928f4e"}
+theme["DiagnosticVirtualTextError"] = {link = "DiagnosticError"}
+theme["DiagnosticVirtualTextWarn"] = {link = "DiagnosticWarn"}
+theme["DiagnosticVirtualTextInfo"] = {link = "DiagnosticInfo"}
+theme["DiagnosticVirtualTextHint"] = {link = "DiagnosticHint"}
+theme["DiagnosticVirtualTextOk"] = {link = "DiagnosticOk"}
+theme["DiagnosticUnderlineError"] = {underline = true}
+theme["DiagnosticUnderlineWarn"] = {underline = true}
+theme["DiagnosticUnderlineInfo"] = {underline = true}
+theme["DiagnosticUnderlineHint"] = {underline = true}
+theme["DiagnosticUnderlineOk"] = {underline = true}
+theme["DiagnosticFloatingError"] = {link = "DiagnosticError"}
+theme["DiagnosticFloatingWarn"] = {link = "DiagnosticWarn"}
+theme["DiagnosticFloatingInfo"] = {link = "DiagnosticInfo"}
+theme["DiagnosticFloatingHint"] = {link = "DiagnosticHint"}
+theme["DiagnosticFloatingOk"] = {link = "DiagnosticOk"}
+theme["DiagnosticSignError"] = {link = "DiagnosticError"}
+theme["DiagnosticSignWarn"] = {link = "DiagnosticWarn"}
+theme["DiagnosticSignInfo"] = {link = "DiagnosticInfo"}
+theme["DiagnosticSignHint"] = {link = "DiagnosticHint"}
+theme["DiagnosticSignOk"] = {link = "DiagnosticOk"}
+theme["markdownBold"] = {bold = true}
+theme["markdownItalic"] = {italic = true}
+theme["FzfLuaNormal"] = {link = "Normal"}
+theme["FzfLuaCursor"] = {link = "Cursor"}
+theme["FzfLuaSearch"] = {link = "IncSearch"}
+theme["FzfLuaCursorLineNr"] = {link = "CursorLineNr"}
+theme["FzfLuaScrollFloatEmpty"] = {link = "PmenuSbar"}
+theme["FzfLuaScrollFloatFull"] = {link = "PmenuThumb"}
+theme["FzfLuaCursorLine"] = {link = "CursorLine"}
+theme["FzfLuaBorder"] = {fg = "#928f4e"}
+theme["FzfLuaTitle"] = {fg = "#476746"}
+theme["GitSignsAdd"] = {fg = "#636135"}
+theme["GitSignsChange"] = {fg = "#6a5f3f"}
+theme["GitSignsDelete"] = {fg = "#9a5727"}
+theme["IblIndent"] = {fg = "#151E15", nocombine = true}
+theme["MiniTablineCurrent"] = {link = "TabLineSel"}
+theme["MiniTablineHidden"] = {bg = "#362127"}
+theme["MiniTablineVisible"] = {link = "MiniTablineHidden"}
+theme["MiniTablineModifiedCurrent"] = {bg = "#5D6C5A", bold = true}
+theme["MiniTablineModifiedHidden"] = {bg = "#362127", fg = "#bb8a3e"}
+theme["MiniTablineModifiedVisible"] = {link = "MiniTablineModifiedHidden"}
+theme["MiniTablineTabpageSection"] = {link = "IncSearch"}
+theme["MiniJump2dSpot"] = {link = "TabLineSel"}
 vim.cmd("highlight clear")
 vim.cmd("set t_Co=256")
 vim.cmd("let g:colors_name='monalisa'")
-
--- apply highlight groups
-for group, attrs in pairs(colors) do
-    vim.api.nvim_set_hl(0, group, attrs)
+for group, attr in pairs(theme) do
+  vim.api.nvim_set_hl(0, group, attr)
 end
+return nil
