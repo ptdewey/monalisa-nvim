@@ -1,6 +1,6 @@
 local theme = {}
-theme["Normal"] = {bg = "#120b0d", fg = "#ffe598"}
-theme["Identifier"] = {fg = "#ffe598"}
+theme["Normal"] = {bg = "#120b0d", fg = "#f6d666"}
+theme["Identifier"] = {fg = "#f6d666"}
 theme["@variable"] = {link = "Identifier"}
 theme["@lsp.type.parameter"] = {link = "Identifier"}
 theme["@lsp.type.property"] = {link = "Identifier"}
@@ -50,9 +50,10 @@ theme["@boolean"] = {link = "Boolean"}
 theme["@float"] = {link = "Float"}
 theme["Operator"] = {fg = "#5D6C5A"}
 theme["@operator"] = {link = "Operator"}
-theme["Delimiter"] = {fg = "#ffe598"}
+theme["Delimiter"] = {fg = "#6a5f3f"}
 theme["@punctuation"] = {link = "Delimiter"}
-theme["@punctuation.bracket"] = {link = "Delimiter"}
+theme["DelimiterLight"] = {fg = "#a18954"}
+theme["@punctuation.bracket"] = {link = "DelimiterLight"}
 theme["Special"] = {fg = "#9a5727"}
 theme["SpecialChar"] = {fg = "#9a5727"}
 theme["Tag"] = {fg = "#9a5727"}
@@ -72,15 +73,27 @@ theme["@comment"] = {link = "Comment"}
 theme["@text.literal"] = {link = "Comment"}
 theme["Ignore"] = {link = "Comment"}
 theme["Conceal"] = {link = "Comment"}
-theme["Cursor"] = {bg = "#ffe598", fg = "#120b0d"}
+theme["Cursor"] = {bg = "#f6d666", fg = "#120b0d"}
 theme["TermCursor"] = {link = "Cursor"}
-theme["Search"] = {bg = "#9e333f", fg = "#ffe598"}
-theme["CurSearch"] = {bg = "#636135", fg = "#ffe598"}
-theme["IncSearch"] = {bg = "#bb8a3e", fg = "#ffe598"}
-theme["DiffAdd"] = {fg = "#636135"}
-theme["DiffChange"] = {fg = "#514743"}
+theme["Search"] = {bg = "#9e333f", fg = "#f6d666"}
+theme["CurSearch"] = {bg = "#636135", fg = "#f6d666"}
+theme["IncSearch"] = {bg = "#bb8a3e", fg = "#f6d666"}
+theme["DiffText"] = {link = "Visual"}
+theme["DiffAdd"] = {fg = "#928f4e"}
+theme["@text.diff.add"] = {link = "DiffAdd"}
+theme["Added"] = {link = "DiffAdd"}
+theme["DiffAdded"] = {link = "Added"}
+theme["@diff.plus"] = {link = "Added"}
+theme["DiffChange"] = {fg = "#6a5f3f"}
+theme["@text.diff.change"] = {link = "DiffChange"}
+theme["Changed"] = {link = "DiffChange"}
+theme["DiffChanged"] = {link = "Changed"}
+theme["@diff.delta"] = {link = "Changed"}
 theme["DiffDelete"] = {fg = "#9e333f"}
-theme["DiffText"] = {bg = "#2F2327"}
+theme["@text.diff.delete"] = {link = "DiffDelete"}
+theme["Removed"] = {link = "DiffDelete"}
+theme["DiffRemoved"] = {link = "Removed"}
+theme["@diff.minus"] = {link = "Removed"}
 theme["LineNr"] = {fg = "#636135"}
 theme["LineNrAbove"] = {fg = "#514743"}
 theme["LineNrBelow"] = {fg = "#514743"}
@@ -92,9 +105,9 @@ theme["TabLine"] = {bg = "#2F2327"}
 theme["TabLineSel"] = {bg = "#636135", bold = true}
 theme["TabLineSep"] = {bg = "#120b0d", fg = "#2F2327"}
 theme["TabLineSelSep"] = {bg = "#120b0d", bold = true, fg = "#636135"}
-theme["TabLineFill"] = {bg = "#120b0d", fg = "#ffe598"}
+theme["TabLineFill"] = {bg = "#120b0d", fg = "#f6d666"}
 theme["Pmenu"] = {link = "Normal"}
-theme["PmenuSel"] = {bg = "#928f4e", fg = "#ffe598"}
+theme["PmenuSel"] = {bg = "#928f4e", fg = "#f6d666"}
 theme["PmenuKind"] = {link = "Pmenu"}
 theme["PmenuKindSel"] = {link = "PmenuSel"}
 theme["PmenuExtra"] = {link = "Pmenu"}
@@ -117,6 +130,8 @@ theme["MatchParen"] = {link = "Normal"}
 theme["NonText"] = {link = "Comment"}
 theme["EndOfBuffer"] = {link = "Comment"}
 theme["VisualNOS"] = {link = "Visual"}
+theme["WarningMsg"] = {fg = "#c16e31"}
+theme["MoreMsg"] = {bold = true, fg = "#525c5d"}
 theme["NormalFloat"] = {link = "Normal"}
 theme["@field"] = {link = "Field"}
 theme["@property"] = {link = "Field"}
@@ -180,6 +195,8 @@ theme["MiniTablineVisible"] = {link = "MiniTablineHidden"}
 theme["MiniTablineModifiedCurrent"] = {bg = "#5D6C5A", bold = true}
 theme["MiniTablineModifiedHidden"] = {bg = "#362127", fg = "#bb8a3e"}
 theme["MiniTablineModifiedVisible"] = {link = "MiniTablineModifiedHidden"}
+theme["MiniTablineTabpageSection"] = {link = "IncSearch"}
+theme["MiniJump2dSpot"] = {link = "TabLineSel"}
 vim.cmd("highlight clear")
 vim.cmd("set t_Co=256")
 vim.cmd("let g:colors_name='monalisa'")

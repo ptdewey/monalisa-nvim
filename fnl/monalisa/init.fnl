@@ -4,7 +4,9 @@
   `(macro ,name [] ,hex))
 
 ;; Color macros
-(defcolor fg "#ffe598")
+(defcolor altfg "#ffe598")
+(defcolor altfg "#a18954")
+(defcolor fg "#f6d666")
 (defcolor bg "#120b0d")
 (defcolor red "#ca5443")
 (defcolor green "#636135")
@@ -21,7 +23,6 @@
 (defcolor punc "#6a5f3f")
 (defcolor selection "#2F2327")
 (defcolor lightBlack "#362127")
-
 (defcolor indentScope "#151E15")
 
 (macro hl [name & attrs]
@@ -107,9 +108,10 @@
 (ln "@operator" Operator)
 
 ;; Delimiters
-(hl Delimiter :fg (fg))
+(hl Delimiter :fg (punc))
 (ln "@punctuation" Delimiter)
-(ln "@punctuation.bracket" Delimiter)
+(hl DelimiterLight :fg (altfg))
+(ln "@punctuation.bracket" DelimiterLight)
 
 ;; Special
 (hl Special :fg (darkOrange))
@@ -146,10 +148,22 @@
 (hl IncSearch :fg (fg) :bg (darkYellow))
 
 ;; Diffs
-(hl DiffAdd :fg (green))
-(hl DiffChange :fg (cmt))
+(ln DiffText Visual)
+(hl DiffAdd :fg (brightGreen))
+(ln "@text.diff.add" DiffAdd)
+(ln Added DiffAdd)
+(ln DiffAdded Added)
+(ln "@diff.plus" Added)
+(hl DiffChange :fg (punc))
+(ln "@text.diff.change" DiffChange)
+(ln Changed DiffChange)
+(ln DiffChanged Changed)
+(ln "@diff.delta" Changed)
 (hl DiffDelete :fg (crimson))
-(hl DiffText :bg (selection))
+(ln "@text.diff.delete" DiffDelete)
+(ln Removed DiffDelete)
+(ln DiffRemoved Removed)
+(ln "@diff.minus" Removed)
 
 ;; Line numbers
 (hl LineNr :fg (green))
@@ -196,6 +210,8 @@
 (ln NonText Comment)
 (ln EndOfBuffer Comment)
 (ln VisualNOS Visual)
+(hl WarningMsg :fg (orange))
+(hl MoreMsg :fg (blue) :bold true)
 
 ;; Floating Windows
 (ln NormalFloat Normal)
@@ -281,8 +297,8 @@
 (hl MiniTablineModifiedCurrent :bg (blueGreen) :bold true)
 (hl MiniTablineModifiedHidden :bg (lightBlack) :fg (darkYellow))
 (ln MiniTablineModifiedVisible MiniTablineModifiedHidden)
-
-;; TODO: starter groups
+(ln MiniTablineTabpageSection IncSearch)
+(ln MiniJump2dSpot TabLineSel)
 
 ;; Colorscheme setup
 (vim.cmd "highlight clear")
