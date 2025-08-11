@@ -214,6 +214,7 @@
 (ln VisualNOS Visual)
 (hl WarningMsg :fg (orange))
 (hl MoreMsg :fg (blue) :bold true)
+(ln ModeMsg Normal)
 
 ;; Floating Windows
 (ln NormalFloat Normal)
