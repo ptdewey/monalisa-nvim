@@ -133,6 +133,7 @@ theme["EndOfBuffer"] = {link = "Comment"}
 theme["VisualNOS"] = {link = "Visual"}
 theme["WarningMsg"] = {fg = "#c16e31"}
 theme["MoreMsg"] = {bold = true, fg = "#525c5d"}
+theme["ModeMsg"] = {link = "Normal"}
 theme["NormalFloat"] = {link = "Normal"}
 theme["@field"] = {link = "Field"}
 theme["@property"] = {link = "Field"}
