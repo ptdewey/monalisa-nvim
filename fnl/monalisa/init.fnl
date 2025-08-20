@@ -6,7 +6,7 @@
   `(macro ,name [] ,hex))
 
 ;; Color macros
-(defcolor altfg "#ffe598")
+; (defcolor altfg "#ffe598")
 (defcolor altfg "#a18954")
 (defcolor fg "#f6d666")
 (defcolor bg "#120b0d")
@@ -73,6 +73,9 @@
 (ln "@repeat" Repeat)
 (ln "@label" Label)
 (ln "@exception" Exception)
+(hl Field :fg (teal))
+(ln "@field" Field)
+(ln "@property" Field)
 
 ;; Types
 (hl Type :fg (darkOrange))
@@ -201,7 +204,7 @@
 ;; Special UI elements
 (hl Directory :fg (green))
 (hl ErrorMsg :fg (darkOrange))
-(hl Underlined :underline true)
+(hl Underlined :fg (green) :underline true)
 (hl Error :fg (crimson))
 (hl Todo :fg (darkYellow))
 (ln SpecialComment Comment)
@@ -215,14 +218,13 @@
 (hl WarningMsg :fg (orange))
 (hl MoreMsg :fg (blue) :bold true)
 (ln ModeMsg Normal)
+(ln Question Field)
+(ln QuickFixLine Search)
 
 ;; Floating Windows
 (ln NormalFloat Normal)
 
 ;; Additional Treesitter highlights
-(ln "@field" Field)
-(ln "@property" Field)
-(hl Field :fg (teal))
 (ln "@function.builtin" Function)
 (ln "@constant.macro" Define)
 (ln "@string.escape" String)

@@ -26,6 +26,9 @@ theme["@conditional"] = {link = "Conditional"}
 theme["@repeat"] = {link = "Repeat"}
 theme["@label"] = {link = "Label"}
 theme["@exception"] = {link = "Exception"}
+theme["Field"] = {fg = "#476746"}
+theme["@field"] = {link = "Field"}
+theme["@property"] = {link = "Field"}
 theme["Type"] = {fg = "#9a5727"}
 theme["StorageClass"] = {fg = "#9a5727"}
 theme["Typedef"] = {fg = "#9a5727"}
@@ -120,7 +123,7 @@ theme["FloatTitle"] = {fg = "#928f4e"}
 theme["Title"] = {fg = "#5D6C5A"}
 theme["Directory"] = {fg = "#636135"}
 theme["ErrorMsg"] = {fg = "#9a5727"}
-theme["Underlined"] = {underline = true}
+theme["Underlined"] = {fg = "#636135", underline = true}
 theme["Error"] = {fg = "#9e333f"}
 theme["Todo"] = {fg = "#bb8a3e"}
 theme["SpecialComment"] = {link = "Comment"}
@@ -134,10 +137,9 @@ theme["VisualNOS"] = {link = "Visual"}
 theme["WarningMsg"] = {fg = "#c16e31"}
 theme["MoreMsg"] = {bold = true, fg = "#525c5d"}
 theme["ModeMsg"] = {link = "Normal"}
+theme["Question"] = {link = "Field"}
+theme["QuickFixLine"] = {link = "Search"}
 theme["NormalFloat"] = {link = "Normal"}
-theme["@field"] = {link = "Field"}
-theme["@property"] = {link = "Field"}
-theme["Field"] = {fg = "#476746"}
 theme["@function.builtin"] = {link = "Function"}
 theme["@constant.macro"] = {link = "Define"}
 theme["@string.escape"] = {link = "String"}

@@ -8,4 +8,5 @@ return {
             end,
         },
     },
+    clean = true,
 }
